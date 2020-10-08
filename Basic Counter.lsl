@@ -1,3 +1,8 @@
+/* This script is a basic timer script.  It will turn
+ * any object it is placed in red over time.  It is
+ * reset with a simple click.  Adjust INTERVAL to set
+ * how fast it will change.
+*/
 integer DAY = 86400;
 integer INTERVAL = 30; //Days till max red.
 integer TIME = 120; //Time between checks in seconds
