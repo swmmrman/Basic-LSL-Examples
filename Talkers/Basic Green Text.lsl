@@ -1,6 +1,7 @@
 //This is a basic script to repeat whatever is fed into the text box, and repeat
 //it in green text.
 
+string objectName = "Green Text Talker";
 integer chan;
 integer listener;
 key owner;
@@ -24,7 +25,10 @@ doCommand(string command) {
     c = llToLower(c); //Make lowercase so not case sensitive.
     if(c == "shout") mode = 1;
     else if(c == "talk") mode = 0;
-    else if(c == "off") mode = -1;
+    else if(c == "off") {
+        mode = -1;
+        llSetObjectName(objectName);
+    }
     else mode = !mode; //No match, just toggle shout.
 }
 
