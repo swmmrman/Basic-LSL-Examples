@@ -49,7 +49,7 @@ default {
         else repeat(body);
     }
     attach(key id) {
-         init();
+        if(id != NULL_KEY) init();
     }
     touch_start(integer touched) {
         mode = 0;
