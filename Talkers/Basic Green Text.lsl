@@ -39,4 +39,7 @@ default {
         }
         else repeat(body);
     }
+    attach(key id) {
+         init();
+    }
 }
