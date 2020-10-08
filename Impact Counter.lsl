@@ -17,4 +17,7 @@ default {
         collisions++;
         llSetText("Collisions: "(string) + collisions, TEXT_COLOR, 1);
     }
+    touch_start(integer count) {
+        init();  //Just call init() to reset.
+    }
 }
