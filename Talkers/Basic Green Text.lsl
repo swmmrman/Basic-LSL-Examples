@@ -4,10 +4,11 @@
 integer chan;
 integer listener;
 key owner;
+string name;
 integer mode; //Needed to control shout or talk mode.
 
 init() {
-    chan = llFrand(0, 1000) * -1;
+    chan = (integer)llFrand(1000) * -1;
     owner = llGetOwner();
     name = osKey2Name(owner);
     listener = llListen(chan, "" , owner, "");
@@ -18,12 +19,24 @@ init() {
 repeat(string text) {
 
 }
+doCommand(string command) {
+    string c = llGetSubString(command, 1,-1); //Extract just the command.
+    c = llToLower(c); //Make lowercase so not case sensitive.
+    if(c == "shout") mode = 1;
+    else if(c == "talk") mode = 0;
+    else if(c == "off") mode = -1;
+    else mode = !mode; //No match, just toggle shout.
+}
 
 default {
     state_entry() {
         init();
     }
     listen(integer chan, string name, key id, string body){
-        repeat(body);
+        integer command = ~(llSubStringIndex(body, "!"));
+        if(command) {
+            doCommand(body);
+        }
+        else repeat(body);
     }
 }
