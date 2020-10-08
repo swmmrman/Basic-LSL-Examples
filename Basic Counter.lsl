@@ -60,4 +60,10 @@ default {
             reset();
         }
     }
+    changed(integer change) {
+        if(change & CHANGED_OWNER) {
+            //If owner changes, call init() and reset the script.
+            init();
+        }
+    }
 }
