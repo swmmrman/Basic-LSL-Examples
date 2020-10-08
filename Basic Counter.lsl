@@ -18,8 +18,9 @@ init() {
     amount = 1/(float)INTERVAL; //Caculates the ammount to subtract for color.
     llSetTimerEvent(TIME);
     owner = llGetOwner();  // Get here, since this likely will not be changing.
-    reset();
     days = INTERVAL;
+    llResetTime();
+    setColor(days);
 }
 
 reset() {
