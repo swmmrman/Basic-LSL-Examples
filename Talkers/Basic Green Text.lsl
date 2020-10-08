@@ -15,10 +15,13 @@ init() {
     listener = llListen(chan, "" , owner, "");
     llSetObjectName(name);
     mode = 0;
+    llTextBox(owner, "Text to say", chan);
 }
 
 repeat(string text) {
-
+    if(mode) llShout(0, text); //We want to shout.
+    else llSay(0,text);
+    llTextBox(owner, "Text to say", chan);
 }
 doCommand(string command) {
     string c = llGetSubString(command, 1,-1); //Extract just the command.
@@ -28,8 +31,10 @@ doCommand(string command) {
     else if(c == "off") {
         mode = -1;
         llSetObjectName(objectName);
+        return;
     }
     else mode = !mode; //No match, just toggle shout.
+    llTextBox(owner, "Text to say", chan);
 }
 
 default {
@@ -45,5 +50,9 @@ default {
     }
     attach(key id) {
          init();
+    }
+    touch_start(integer touched) {
+        mode = 0;
+        llTextBox(owner, "Text to say", chan);
     }
 }
