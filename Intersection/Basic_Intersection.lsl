@@ -36,6 +36,12 @@ blinkLights(list color, integer colorCount) {
 }
 
 startTest() {
+    list allLights = greenLights + yellowLights + redLights;
+    list allDirections = NS + EW;
+    setDirection(allLights, allDirections, 1);
+    llSleep(0.5);
+    setDirection(allLights, allDirections, 0);
+    llSleep(0.5);
     blinkLights(greenLights, greenCount);
     blinkLights(yellowLights, yellowCount);
     blinkLights(redLights, redCount);
@@ -85,7 +91,7 @@ default {
         }
         startTest();
         setDirection(greenLights, EW, 1);
-        setDirection(redLights, NS, 1)
+        setDirection(redLights, NS, 1);
     }
     touch_start(integer touched) {
         //Debugging feature makes any link light up when clicked.
