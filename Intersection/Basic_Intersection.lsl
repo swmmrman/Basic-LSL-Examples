@@ -17,6 +17,13 @@ blinkLights(list color, integer colorCount) {
         llSleep(1);
 }
 
+startTest() {
+    blinkLights(greenLights, greenCount);
+    blinkLights(yellowLights, yellowCount);
+    blinkLights(redLights, redCount);
+    llSay(0, "Intersection Ready");
+}
+
 default {
     state_entry() {
         list greenLights;
@@ -43,10 +50,7 @@ default {
                 greenCount++;
             }
         }
-        blinkLights(greenLights, greenCount);
-        blinkLights(yellowLights, yellowCount);
-        blinkLights(redLights, redCount);
-        llSay(0, "Intersection Ready");
+        startTest();
     }
     touch_start(integer touched) {
         //Debugging feature makes any link light up when clicked.
