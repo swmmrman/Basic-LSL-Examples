@@ -49,8 +49,8 @@ default {
             list details = llGetLinkPrimitiveParams(i, [PRIM_NAME, PRIM_DESC]);
             // Fetch the name and description of the lights.  Then description
             // contains the direction it faces.  Name contains the type.
-            name = llList2String(details, 0);
-            direction = ll2Lower(llList2String(details, 1));
+            string name = llList2String(details, 0);
+            string direction = llToLower(llList2String(details, 1));
             if(name == "Red Light"){
                 redLights += i;
                 redCount++;
