@@ -12,7 +12,11 @@ integer greenCount;
 integer yellowCount;
 integer redCount;
 float intensity = 0.75; // Float 0.0 to 1
-integer GreenTime = 120; //In seconds
+integer greenTime = 120; //In seconds
+integer yellowTime = 10;
+integer redTime = 15;
+integer direction;
+integer changing;
 
 blinkLights(list color, integer colorCount) {
     //Diagnostic blinking for startup
@@ -90,8 +94,11 @@ default {
             else NS += i;
         }
         startTest();
-        setDirection(greenLights, EW, 1);
-        setDirection(redLights, NS, 1);
+        llSetTimerEvent(1);
+        direction = 1;
+        changing = 0;
+        setDirection(greenLights, NS, 1);
+        setDirection(redLights, EW, 1);
     }
     touch_start(integer touched) {
         //Debugging feature makes any link light up when clicked.
@@ -109,6 +116,53 @@ default {
                 PRIM_GLOW, -1, 0.0,
                 PRIM_FULLBRIGHT, -1, 0
             ]);
+        }
+    }
+    timer() {
+        // Needs reworked, this was to make it cycle.  After typing i saw a
+        // better way.
+        float time = llGetTime();
+        if(changing == 1 && time > yellowTime) {
+            //We are yellow
+            changing = 2;
+            llResetTime();
+            if(direction == 1) {
+                // Lights are Yellow NS.
+                setDirection(yellowLights, NS, 0);
+                setDirection(redLights, NS, 1);
+            }
+            else {
+                // Lights are Yellow EW.
+                setDirection(yellowLights, EW, 0);
+                setDirection(redLights, EW, 1);
+            }
+        }
+        else if(changing == 2 && time > redTime) {
+            changing = 0;
+            llResetTime();
+            if(direction == 1) {
+                // Lights are red.
+                setDirection(greenLights, EW, 1);
+            }
+            else {
+                // Lights are red.
+                setDirection(greenLights, NS, 1);
+            }
+
+        }
+        else if(time > greenTime) {
+            changing = 1;
+            llResetTime();
+            if(direction == 1) {
+                // Lights are green NS.
+                setDirection(greenLights, NS, 0);
+                setDirection(yellowLights, NS, 1);
+            }
+            else {
+                // Lights are green EW.
+                setDirection(greenLights, EW, 0);
+                setDirection(yellowLights, EW, 1);
+            }
         }
     }
 }
