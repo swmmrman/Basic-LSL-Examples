@@ -12,6 +12,7 @@ integer greenCount;
 integer yellowCount;
 integer redCount;
 float intensity = 0.75; // Float 0.0 to 1
+integer GreenTime = 120; //In seconds
 
 blinkLights(list color, integer colorCount) {
     //Diagnostic blinking for startup
@@ -47,7 +48,7 @@ setDirection(list color, list direction, integer status) {
     integer lights = llGetListLength(color);
     for(light=0; light<lights; light++) {
         integer linkNum = llList2Integer(color, light); //find link.
-        if(llListFindList(direction, [linkNum])) {
+        if(~llListFindList(direction, [linkNum])) {
             llSetLinkPrimitiveParamsFast(linkNum, [
                 PRIM_GLOW, -1, (status * intensity),
                 PRIM_FULLBRIGHT, -1, status
@@ -84,6 +85,7 @@ default {
         }
         startTest();
         setDirection(greenLights, EW, 1);
+        setDirection(redLights, NS, 1)
     }
     touch_start(integer touched) {
         //Debugging feature makes any link light up when clicked.
