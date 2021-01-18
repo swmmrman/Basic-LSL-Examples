@@ -11,7 +11,7 @@ list EW; // East/west facing
 integer greenCount;
 integer yellowCount;
 integer redCount;
-float intensity = 0.75; // Float 0.0 to 1
+float intensity = 0.95; // Float 0.0 to 1
 integer greenTime = 120; //In seconds
 integer yellowTime = 10;
 integer redTime = 15;
@@ -142,11 +142,15 @@ default {
             llResetTime();
             if(direction == 1) {
                 // Lights are red.
+                setDirection(redLights, EW, 0);
                 setDirection(greenLights, EW, 1);
+                direction = 0;
             }
             else {
                 // Lights are red.
+                setDirection(redLights, NS, 0);
                 setDirection(greenLights, NS, 1);
+                direction = 1;
             }
 
         }
