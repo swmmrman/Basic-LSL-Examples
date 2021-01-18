@@ -2,6 +2,14 @@
 /*
  * Currently This script just finds the lights and blinks each color.
 */
+
+list greenLights;
+list yellowLights;
+list redLights;
+integer greenCount;
+integer yellowCount;
+integer redCount;
+
 blinkLights(list color, integer colorCount) {
         //Diagnostic blinking for startup
         integer index;
@@ -32,12 +40,6 @@ startTest() {
 
 default {
     state_entry() {
-        list greenLights;
-        list yellowLights;
-        list redLights;
-        integer greenCount;
-        integer yellowCount;
-        integer redCount;
         integer prims = llGetNumberOfPrims() + 1;
         integer i;
         for(i=0; i < prims +1; i++) {
