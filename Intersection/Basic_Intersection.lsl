@@ -6,6 +6,8 @@
 list greenLights;
 list yellowLights;
 list redLights;
+list NS; // North/south facing
+list EW; // East/west facing
 integer greenCount;
 integer yellowCount;
 integer redCount;
@@ -44,7 +46,11 @@ default {
         integer i;
         for(i=0; i < prims +1; i++) {
             //Walk over all links and add lights to the correct lists.
-            string name = llGetLinkName(i);
+            list details = llGetLinkPrimitiveParams(i, [PRIM_NAME, PRIM_DESC]);
+            // Fetch the name and description of the lights.  Then description
+            // contains the direction it faces.  Name contains the type.
+            name = llList2String(details, 0);
+            direction = ll2Lower(llList2String(details, 1));
             if(name == "Red Light"){
                 redLights += i;
                 redCount++;
@@ -57,6 +63,8 @@ default {
                 greenLights += i;
                 greenCount++;
             }
+            if(direction == "w" | direction == "e") EW += i;
+            else NS += i;
         }
         startTest();
     }
