@@ -11,24 +11,24 @@ integer yellowCount;
 integer redCount;
 
 blinkLights(list color, integer colorCount) {
-        //Diagnostic blinking for startup
-        integer index;
-        for(index = 0; index < colorCount; index++) {
-            integer light = llList2Integer(color, index);
-            llSetLinkPrimitiveParamsFast(light, [
-                PRIM_GLOW, -1, 1,
-                PRIM_FULLBRIGHT, -1, 1
-            ]);
-        }
-        llSleep(1);
-        for(index = 0; index < colorCount; index++) {
-            integer light = llList2Integer(color, index);
-            llSetLinkPrimitiveParamsFast(light, [
-                PRIM_GLOW, -1, 0.0,
-                PRIM_FULLBRIGHT, -1, 0
-            ]);
-        }
-        llSleep(1);
+    //Diagnostic blinking for startup
+    integer index;
+    for(index = 0; index < colorCount; index++) {
+        integer light = llList2Integer(color, index);
+        llSetLinkPrimitiveParamsFast(light, [
+            PRIM_GLOW, -1, 1,
+            PRIM_FULLBRIGHT, -1, 1
+        ]);
+    }
+    llSleep(1);
+    for(index = 0; index < colorCount; index++) {
+        integer light = llList2Integer(color, index);
+        llSetLinkPrimitiveParamsFast(light, [
+            PRIM_GLOW, -1, 0.0,
+            PRIM_FULLBRIGHT, -1, 0
+        ]);
+    }
+    llSleep(1);
 }
 
 startTest() {
