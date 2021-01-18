@@ -7,12 +7,18 @@ blinkLights(list color, integer colorCount) {
         integer index;
         for(index = 0; index < colorCount; index++) {
             integer light = llList2Integer(color, index);
-            llSetLinkPrimitiveParamsFast(light, [PRIM_GLOW, -1, 1, PRIM_FULLBRIGHT, -1, 1]);
+            llSetLinkPrimitiveParamsFast(light, [
+                PRIM_GLOW, -1, 1,
+                PRIM_FULLBRIGHT, -1, 1
+            ]);
         }
         llSleep(1);
         for(index = 0; index < colorCount; index++) {
             integer light = llList2Integer(color, index);
-            llSetLinkPrimitiveParamsFast(light, [PRIM_GLOW, -1, 0.0, PRIM_FULLBRIGHT, -1, 0]);
+            llSetLinkPrimitiveParamsFast(light, [
+                PRIM_GLOW, -1, 0.0,
+                PRIM_FULLBRIGHT, -1, 0
+            ]);
         }
         llSleep(1);
 }
@@ -55,13 +61,19 @@ default {
     touch_start(integer touched) {
         //Debugging feature makes any link light up when clicked.
         if(llGetOwner() == llDetectedKey(0)) {
-            llSetLinkPrimitiveParamsFast(llDetectedLinkNumber(0), [PRIM_GLOW, -1, 0.1, PRIM_FULLBRIGHT,-1, 1]);
+            llSetLinkPrimitiveParamsFast(llDetectedLinkNumber(0), [
+                PRIM_GLOW, -1, 0.1,
+                PRIM_FULLBRIGHT, -1, 1
+            ]);
         }
     }
     touch_end(integer touched){
         //Debugging Feature
         if(llGetOwner() == llDetectedKey(0)) {
-            llSetLinkPrimitiveParamsFast(llDetectedLinkNumber(0), [PRIM_GLOW, -1, 0.0, PRIM_FULLBRIGHT,-1, 0]);
+            llSetLinkPrimitiveParamsFast(llDetectedLinkNumber(0), [
+                PRIM_GLOW, -1, 0.0,
+                PRIM_FULLBRIGHT, -1, 0
+            ]);
         }
     }
 }
