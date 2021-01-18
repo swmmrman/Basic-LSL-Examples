@@ -1,6 +1,9 @@
 //Basic Intersection Script
-
+/*
+ * Currently This script just finds the lights and blinks each color.
+*/
 blinkLights(list color, integer colorCount) {
+        //Diagnostic blinking for startup
         integer index;
         for(index = 0; index < colorCount; index++) {
             integer light = llList2Integer(color, index);
@@ -15,17 +18,17 @@ blinkLights(list color, integer colorCount) {
 }
 
 default {
-    state_entry() { 
+    state_entry() {
         list greenLights;
         list yellowLights;
         list redLights;
         integer greenCount;
         integer yellowCount;
         integer redCount;
-        //lights = green_lights + red_lights + yellow_lights;
         integer prims = llGetNumberOfPrims() + 1;
         integer i;
         for(i=0; i < prims +1; i++) {
+            //Walk over all links and add lights to the correct lists.
             string name = llGetLinkName(i);
             if(name == "Red Light"){
                 redLights += i;
@@ -46,13 +49,13 @@ default {
         llSay(0, "Intersection Ready");
     }
     touch_start(integer touched) {
-        //Debugging feature
+        //Debugging feature makes any link light up when clicked.
         if(llGetOwner() == llDetectedKey(0)) {
             llSetLinkPrimitiveParamsFast(llDetectedLinkNumber(0), [PRIM_GLOW, -1, 0.1, PRIM_FULLBRIGHT,-1, 1]);
         }
     }
     touch_end(integer touched){
-        //Debuggin Feature
+        //Debugging Feature
         if(llGetOwner() == llDetectedKey(0)) {
             llSetLinkPrimitiveParamsFast(llDetectedLinkNumber(0), [PRIM_GLOW, -1, 0.0, PRIM_FULLBRIGHT,-1, 0]);
         }
