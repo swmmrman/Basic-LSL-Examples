@@ -11,6 +11,7 @@ list EW; // East/west facing
 integer greenCount;
 integer yellowCount;
 integer redCount;
+float intensity = 0.75; // Float 0.0 to 1
 
 blinkLights(list color, integer colorCount) {
     //Diagnostic blinking for startup
@@ -40,6 +41,21 @@ startTest() {
     llSay(0, "Intersection Ready");
 }
 
+setDirection(list color, list direction, integer status) {
+    //This fuction will toggle a direction on.
+    integer light;
+    integer lights = llGetListLength(color);
+    for(light=0; light<lights; light++) {
+        integer linkNum = llList2Integer(color, light); //find link.
+        if(llListFindList(direction, [linkNum])) {
+            llSetLinkPrimitiveParamsFast(linkNum, [
+                PRIM_GLOW, -1, (status * intensity),
+                PRIM_FULLBRIGHT, -1, status
+            ]);
+        }
+    }
+}
+
 default {
     state_entry() {
         integer prims = llGetNumberOfPrims() + 1;
@@ -67,6 +83,7 @@ default {
             else NS += i;
         }
         startTest();
+        setDirection(greenLights, EW, 1);
     }
     touch_start(integer touched) {
         //Debugging feature makes any link light up when clicked.
